@@ -1,0 +1,17 @@
+# Dataset and Processed Data
+data/
+outputs/results/
+outputs/eda_terminal_output.txt
+
+# Python and Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+venv/
+env/
+cs465_env/
+
+# OS specific files
+.DS_Store
+Thumbs.db
