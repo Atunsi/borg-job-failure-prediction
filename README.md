@@ -1,43 +1,46 @@
-# Google Borg Job Failure Prediction
+# BORG — Job Failure Prediction in Google Borg Cluster Traces
 
-## Overview
-This repository contains the deliverables for the CS465 project on predicting job failures in the Google Borg cluster trace dataset. The project involves exploratory data analysis (EDA), feature engineering, model training, cross-dataset validation, and an interactive Streamlit dashboard.
+A comparative machine learning study predicting job failures in 
+Google's Borg cluster, enabling proactive resource management and 
+reducing wasted CPU cycles from failed jobs.
+
+Trained on 405,894 job instances from the Google Borg Cluster 
+Traces 2019. Submitted as a peer-reviewed research paper.
+
+## Results
+| Model         | F1 Score | ROC-AUC | Test Set        |
+|---------------|----------|---------|-----------------|
+| Random Forest | 0.9985   | 1.000   | 81,179 jobs     |
+| XGBoost       | 0.9971   | 0.999   | 81,179 jobs     |
+| LightGBM      | 0.9968   | 0.999   | 81,179 jobs     |
+
+- Novel contribution: 11-point CPU histogram features per job
+- SHAP explainability analysis on top predictive features
+- Zero-shot cross-dataset validation on 14M Alibaba 2018 tasks
 
 ## Project Structure
-- `dashboard/`: Contains the interactive Streamlit dashboard files and requirements.
-  - `streamlitdash.py`: Main dashboard application script.
-  - `requirements.txt`: Python dependencies for the dashboard.
-  - `install_and_run.bat`: A batch script to easily install dependencies and start the dashboard.
-- `data/`: Directory for raw and processed datasets (ignored by git due to size).
-- `notebooks/`: Jupyter notebooks detailing EDA and modeling iterations.
-- `outputs/`: Output artifacts including figures, serialized models, and CSV results.
-- `src/`: Source code for data preprocessing, feature extraction, and machine learning pipelines.
+- `dashboard/` — Interactive Streamlit dashboard
+- `data/` — Raw and processed datasets (ignored by git)
+- `notebooks/` — EDA and modelling iterations
+- `outputs/` — Figures, serialised models, CSV results
+- `src/` — Preprocessing, feature engineering, ML pipelines
+
+## Stack
+Python · scikit-learn · XGBoost · LightGBM · SMOTE · SHAP · 
+Pandas · NumPy · Streamlit
 
 ## How to Run the Dashboard
+1. Navigate to the dashboard directory:
+   `cd dashboard`
+2. Install dependencies and launch:
+   `install_and_run.bat`
+   Or manually:
+   `pip install -r requirements.txt`
+   `streamlit run streamlitdash.py`
 
-1. Navigate to the `dashboard` directory:
-   ```bash
-   cd dashboard
-   ```
-2. Run the provided batch script to install all dependencies and launch the dashboard:
-   ```bash
-   install_and_run.bat
-   ```
-   *Alternatively, you can manually install the packages using `pip install -r requirements.txt` and run the dashboard with `streamlit run streamlitdash.py`.*
-
-## Data Requirements & Access
-Due to size constraints, the dataset is not tracked in version control. To download the necessary Google 2019 Cluster sample data locally:
-
-1. Ensure you have the `kagglehub` package installed (`pip install kagglehub`).
-2. Run the provided dataset script from the project root:
-   ```bash
-   python dataset.py
-   ```
-3. The script will automatically download the "derrickmwiti/google-2019-cluster-sample" dataset and print out the path where it has been saved on your local machine.
-
-*Note: You may need to copy the downloaded files into the `data/` directory or update the scripts to reference the printed path before running the pipeline.*
-
-## Tools & Libraries Used
-- **Data Manipulation:** pandas, numpy
-- **Machine Learning:** scikit-learn, XGBoost, LightGBM
-- **Visualization:** matplotlib, seaborn, streamlit
+## Data Access
+Dataset not tracked due to size. To download:
+1. Install kagglehub: `pip install kagglehub`
+2. Run: `python dataset.py`
+3. Script downloads "derrickmwiti/google-2019-cluster-sample" 
+   automatically
